@@ -1,0 +1,46 @@
+apply from: 'gradle/check.gradle'
+apply from: 'gradle/convention.gradle'
+processResources {
+    from('src/test/resources') {
+        include '**/*.json'
+    }
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+shadowJar {
+    mergeServiceFiles()
+    classifier = ''
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+configurations {
+ compile.exclude group:'ch.qos.logback'
+}
+
+
+configurations.all {
+    resolutionStrategy {
+    	force 'slf4j:slf4j-api:1.7.12'
+    }
+   	}
+
+
+task home << {
+    println gradle.gradleHomeDir
+}
+
+defaultTasks 'clean', 'build', 'shadow'

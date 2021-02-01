@@ -1,0 +1,19 @@
+repositories {
+    mavenCentral()
+    jcenter()
+    google()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile(
+
+    )
+
+    testCompile(
+            [group: 'junit', name: 'junit', version: '4.12'],
+            [group: 'org.mockito', name: 'mockito-core', version: '1.10.18'],
+            )
+}

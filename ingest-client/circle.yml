@@ -1,0 +1,22 @@
+machine:
+  java:
+    version: oraclejdk8
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - ./scripts/gradleproperties.sh
+
+test:
+  override:
+    - TERM=dumb ./gradlew shadow
+
+deployment:
+  docker:
+    branch: master
+    commands:
+      - ./scripts/dockercfg.sh
+      - TERM=dumb ./gradlew distTar
+      - TERM=dumb docker build -t openthoughts.artifactoryonline.com/openthoughts/ingest-client:$CIRCLE_SHA1 .
+      - TERM=dumb docker push openthoughts.artifactoryonline.com/openthoughts/ingest-client:$CIRCLE_SHA1

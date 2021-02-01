@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'idea'
+    id 'eclipse'
+    id 'checkstyle'
+    id 'pmd'
+    id 'findbugs'
+    id 'maven'
+    id 'maven-publish'
+    id 'com.jfrog.artifactory' version '3.1.0'
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
+
+apply from: 'gradle/buildscript.gradle'
+
+mainClassName = 'com.openthoughts.ingest.client.Main'
+
+run {
+    environment 'APPLICATION', rootProject.name
+    environment 'ENVIRONMENT', 'local'
+    args System.properties['user.home'] + "/Documents"
+}
+group = 'openthoughts'
+version = '1-SNAPSHOT'
+
+//Remove comments for project dependancies.
+dependencies {
+    compile(
+            [group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.9.3'],
+            [group: 'org.glassfish.jersey', name: 'jersey-bom', version: '2.21'],
+            [group: 'org.glassfish.jersey.connectors', name: 'jersey-grizzly-connector', version: '2.21'],
+            [group: 'org.glassfish.jersey.connectors', name: 'jersey-apache-connector', version: '2.21'],
+            [group: 'org.glassfish.jersey.connectors', name: 'jersey-jetty-connector', version: '2.21'],
+            [group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.21'],
+            [group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.21'],
+            [group: 'org.slf4j', name: 'slf4j-api', version: '1.7.12'],
+            [group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.12'],
+            [group: 'log4j', name: 'log4j', version: '1.2.17'],
+            [group: 'com.google.collections', name: 'google-collections', version: '1.0'],
+            [group: 'openthoughts-ape-dev', name: 'dev-service-common', version: '1.0-SNAPSHOT', changing: true]
+
+    )
+
+    testCompile(
+
+    )
+
+}
+
