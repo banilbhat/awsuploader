@@ -30,6 +30,7 @@ $ gradle idea
 $ vim gradle/application.gradle
 $  replace the line  containing  "args {hotfolderpath}" with "args [yourhotfolderpath]"
 $ run gradle
+$ java -cp build\libs\ownbackup-1-SNAPSHOT-all.jar com.openthoughts.ingest.client.Main [upload_folder_path]
  ```
    OR
 ```bash 
